@@ -13,6 +13,7 @@ public class RevenueManager {
         String category = scanner.nextLine();
         System.out.println("Digite o valor da receita: ");
         double value = scanner.nextDouble();
+        scanner.nextLine();
 
         Revenue revenue = new Revenue(category, value);
         revenues.add(revenue);
@@ -25,4 +26,17 @@ public class RevenueManager {
         }
         return total;
     }
+
+    public void displayRevenues() {
+        if (revenues.isEmpty()) {
+            System.out.println("Nenhuma receita cadastrada.");
+        } else {
+            System.out.println("Receitas cadastradas:");
+            for (Revenue revenue : revenues) {
+                System.out.printf("Categoria: %s | Valor: R$ %.2f\n", revenue.getCategory(), revenue.getValue());
+            }
+            System.out.printf("Total de Receitas: R$ %.2f\n", getTotalRevenue());
+        }
+    }
 }
+

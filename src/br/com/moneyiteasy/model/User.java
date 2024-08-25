@@ -88,4 +88,9 @@ public class User {
             System.out.println("Erro ao cadastrar usuário: " + e.getMessage());
         }
     }
+
+    public void displayUser() {
+        System.out.println("Detalhes do Usuário: ");
+        System.out.printf("Nome: %s | E-mail: %s | CPF: %s%n", name, email, cpf);
+    }
 }
