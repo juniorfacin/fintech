@@ -3,12 +3,14 @@ package br.com.moneyiteasy.model;
 public class Expense {
     private String category;
     private double value;
+    private String timestamp;
 
     public Expense() {}
 
-    public Expense(String category, double value) {
+    public Expense(String category, double value, String timestamp) {
         this.category = category;
         setValue(value);
+        this.timestamp = timestamp;
     }
 
     public String getCategory() {
@@ -28,5 +30,9 @@ public class Expense {
             throw new IllegalArgumentException("O valor não pode ser negativo!");
         }
         this.value = value;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
     }
 }

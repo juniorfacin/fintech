@@ -1,12 +1,15 @@
 package br.com.moneyiteasy.service;
 
+import br.com.moneyiteasy.model.DataHorario;
 import br.com.moneyiteasy.model.Revenue;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class RevenueManager {
     List<Revenue> revenues = new ArrayList<>();
+    DataHorario dataHorario = new DataHorario();
 
     public void addRevenue(Scanner scanner) {
         System.out.println("Digite a categoria da receita: ");
@@ -15,7 +18,8 @@ public class RevenueManager {
         double value = scanner.nextDouble();
         scanner.nextLine();
 
-        Revenue revenue = new Revenue(category, value);
+        String timestamp = dataHorario.getDateTime();
+        Revenue revenue = new Revenue(category, value, timestamp);
         revenues.add(revenue);
     }
 
@@ -33,10 +37,9 @@ public class RevenueManager {
         } else {
             System.out.println("Receitas cadastradas:");
             for (Revenue revenue : revenues) {
-                System.out.printf("Categoria: %s | Valor: R$ %.2f\n", revenue.getCategory(), revenue.getValue());
+                System.out.printf("Categoria: %s | Valor: R$ %.2f | Data e Hora: %s\n", revenue.getCategory(), revenue.getValue(), revenue.getTimestamp());
             }
             System.out.printf("Total de Receitas: R$ %.2f\n", getTotalRevenue());
         }
     }
 }
-
