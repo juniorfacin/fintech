@@ -4,11 +4,11 @@ import java.util.Scanner;
 import java.util.UUID;
 
 public class User {
-    String id;
-    String name;
-    String email;
-    String cpf;
-    String password;
+    private String id;
+    private String name;
+    private String email;
+    private String cpf;
+    private String password;
 
     public User() {
         this.id = UUID.randomUUID().toString();
@@ -57,9 +57,9 @@ public class User {
 
     // Validação de CPF com Exp Regulares; Requisitos: 11 dígitos.
     public void setCpf(String cpf) {
-        if (cpf == null || cpf.length() != 11 || !cpf.matches("^\\d{11}$")) {
+        if (cpf == null || cpf.length() != 11 || cpf.replaceAll("\\D", "").length() != 11) {
             throw new IllegalArgumentException("CPF inválido!");
-        } this.cpf = cpf;
+        } this.cpf = cpf.replaceAll("\\D", "");
     }
 
     public String getPassword() {
@@ -79,9 +79,9 @@ public class User {
             setName(scanner.nextLine());
             System.out.println("Email: ");
             setEmail(scanner.nextLine());
-            System.out.println("CPF: ");
+            System.out.println("CPF (apenas números): ");
             setCpf(scanner.nextLine());
-            System.out.println("Senha: ");
+            System.out.println("Senha (Contendo 8 caracteres, sendo no minimo uma letra maiúscula, um caractere especial e um número): ");
             setPassword(scanner.nextLine());
             System.out.printf("ID do usuário gerado: %s\n", id);
         } catch (IllegalArgumentException e) {
@@ -92,5 +92,8 @@ public class User {
     public void displayUser() {
         System.out.println("Detalhes do Usuário: ");
         System.out.printf("Nome: %s | E-mail: %s | CPF: %s%n", name, email, cpf);
+    }
+    public String getUsername() {
+        return name;
     }
 }
