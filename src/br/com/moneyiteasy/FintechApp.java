@@ -1,10 +1,8 @@
 package br.com.moneyiteasy;
 
-import br.com.moneyiteasy.model.User;
 import br.com.moneyiteasy.service.transaction.RevenueManager;
 import br.com.moneyiteasy.service.transaction.ExpenseManager;
 import br.com.moneyiteasy.service.user.UserManager;
-
 
 import java.util.Scanner;
 
@@ -59,6 +57,5 @@ public class FintechApp {
         } while (op != 0);
 
         scanner.close();
-
     }
 }
