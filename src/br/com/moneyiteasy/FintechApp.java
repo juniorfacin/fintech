@@ -1,8 +1,10 @@
 package br.com.moneyiteasy;
 
 import br.com.moneyiteasy.model.User;
-import br.com.moneyiteasy.service.RevenueManager;
-import br.com.moneyiteasy.service.ExpenseManager;
+import br.com.moneyiteasy.service.transaction.RevenueManager;
+import br.com.moneyiteasy.service.transaction.ExpenseManager;
+import br.com.moneyiteasy.service.user.UserManager;
+
 
 import java.util.Scanner;
 
@@ -10,7 +12,7 @@ public class FintechApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        User usuario = null;
+        UserManager userManager = new UserManager();
         RevenueManager revenueManager = new RevenueManager();
         ExpenseManager expenseManager = new ExpenseManager();
         int op;
@@ -29,32 +31,22 @@ public class FintechApp {
 
             switch (op) {
                 case 1:
-                    if (usuario == null) {
-                        System.out.println("Cadastro de Usuário.");
-                        usuario = new User();
-                        usuario.createUser(scanner);
-                    } else {
-                        System.out.println("Usuário já cadastrado.");
-                    }
+                    userManager.addUser(scanner);
                     break;
                 case 2:
-                    if (usuario != null) {
-                        usuario.displayUser();
-                    } else {
-                        System.out.println("Nenhum usuário cadastrado!");
-                    }
+                    userManager.displayUsers();
                     break;
                 case 3:
-                    revenueManager.addRevenue(scanner);
+                    revenueManager.addTransaction(scanner);
                     break;
                 case 4:
-                    revenueManager.displayRevenues();
+                    revenueManager.displayTransactions();
                     break;
                 case 5:
-                    expenseManager.addExpense(scanner);
+                    expenseManager.addTransaction(scanner);
                     break;
                 case 6:
-                    expenseManager.displayExpenses();
+                    expenseManager.displayTransactions();
                     break;
                 case 0:
                     System.out.println("Finalizando o sistema...");
@@ -67,5 +59,6 @@ public class FintechApp {
         } while (op != 0);
 
         scanner.close();
+
     }
 }
