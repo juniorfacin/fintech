@@ -3,6 +3,7 @@ package br.com.moneyiteasy.service.transaction;
 import br.com.moneyiteasy.model.DataHorario;
 import br.com.moneyiteasy.model.transaction.Transaction;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public abstract class TransactionManager {
         System.out.println("Digite o método de pagamento: ");
         String method = scanner.nextLine();
 
-        String timestamp = dataHorario.getDateTime();
+        LocalDateTime timestamp = dataHorario.getDateTime();
         Transaction transaction = createTransaction(category, value, timestamp, method);
         transactions.add(transaction);
     }
@@ -40,14 +41,13 @@ public abstract class TransactionManager {
             System.out.println(getTransactionType() + "s cadastradas:");
             for (Transaction transaction : transactions) {
                 System.out.printf("Categoria: %s | Valor: %s R$ %.2f | Data e Hora: %s | Método de pagamento: %s\n",
-                        transaction.getCategory(),transaction.isType(), transaction.getValue(), transaction.getTimestamp(), transaction.getMethod());
+                        transaction.getCategory(),transaction.isType(), transaction.getValue(), transaction.getFormattedTimestamp(), transaction.getMethod());
             }
             System.out.printf("Total de " + getTransactionType() + "s: R$ %.2f\n", getTotalValue());
         }
     }
 
-    // Métodos abstratos para que subclasses definam as transações específicas
     protected abstract String getTransactionType();
 
-    protected abstract Transaction createTransaction(String category, double value, String timestamp, String method);
+    protected abstract Transaction createTransaction(String category, double value, LocalDateTime timestamp, String method);
 }
