@@ -1,15 +1,18 @@
 package br.com.moneyiteasy.model.transaction;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public abstract class Transaction {
     private String category;
-    private String timestamp;
+    private LocalDateTime timestamp;
     private String method;
     private double value;
     private boolean type;
 
     public Transaction() {}
 
-    public Transaction(String category, double value, String timestamp, String method, boolean type) {
+    public Transaction(String category, double value, LocalDateTime timestamp, String method, boolean type) {
         this.category = category;
         setValue(value);
         this.timestamp = timestamp;
@@ -17,12 +20,20 @@ public abstract class Transaction {
         this.type = type;
     }
 
-    public void setTimestamp(String timestamp) {
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
     public String getCategory() {
         return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getMethod() {
@@ -31,10 +42,6 @@ public abstract class Transaction {
 
     public void setMethod(String method) {
         this.method = method;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
     }
 
     public double getValue() {
@@ -48,17 +55,13 @@ public abstract class Transaction {
         this.value = value;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getFormattedTimestamp() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return timestamp.format(formatter);
     }
 
     public String isType() {
-        //#######################CONFIRMAR SE É ISTYPE OU GETTYPE ###################
-        if (type) {
-            return "";
-        } else {
-            return "-";
-        }
+        return type ? "" : "-";
     }
 
     public void setType(boolean type) {

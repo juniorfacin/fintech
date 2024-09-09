@@ -3,6 +3,7 @@ package br.com.moneyiteasy.service.transaction;
 import br.com.moneyiteasy.model.transaction.Revenue;
 import br.com.moneyiteasy.model.transaction.Transaction;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class RevenueManager extends TransactionManager {
@@ -13,7 +14,7 @@ public class RevenueManager extends TransactionManager {
     }
 
     @Override
-    protected Transaction createTransaction(String category, double value, String timestamp, String method) {
+    protected Transaction createTransaction(String category, double value, LocalDateTime timestamp, String method) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Digite a origem da receita: ");
         String origin = scanner.nextLine();
@@ -30,7 +31,7 @@ public class RevenueManager extends TransactionManager {
             for (Transaction transaction : transactions) {
                 Revenue income = (Revenue) transaction;
                 System.out.printf("Categoria: %s | Valor: R$ %.2f | Data e Hora: %s | Método de pagamento: %s | Origem: %s\n",
-                        income.getCategory(), income.getValue(), income.getTimestamp(), income.getMethod(), income.getOrigin());
+                        income.getCategory(), income.getValue(), income.getFormattedTimestamp(), income.getMethod(), income.getOrigin());
             }
             System.out.printf("Total de receitas: R$ %.2f\n", getTotalValue());
         }
